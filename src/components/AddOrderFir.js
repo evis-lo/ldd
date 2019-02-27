@@ -19,20 +19,20 @@ class AddOrderFir extends React.Component {
 
 	handleDateChange(value) {
 		console.log(value._d)
-		this.props.handleDateChange(value._d);
+		this.props.onDateChange(value._d);
 	}
 
 	handleQtyChange(value) {
-		this.props.handleQtyChange(value);
+		this.props.onQtyChange(value);
 	}
 
 	handleGidBlur(e) {
 		console.log(e.target.value);
-		this.props.handleGidBlur(e);		
+		this.props.onGidBlur(e);    //向外提供的props名以on为前缀比较好
 	}
 
 	handleUidChange(value) {
-		this.props.handleUidChange(value);		
+		this.props.onUidChange(value);
 	}
 	render() {
 		return (
