@@ -44,7 +44,7 @@ class AddOrder extends React.PureComponent {
 			current: key
 		})
 	}
-	handleGidBlur(e) {
+	handleGidBlur(e) {  //todo 若必填项重新变为空时, 相应变更下一步的disabled
 		this.setState({
 			gid: e.target.value, isGidOk: true
 		});
@@ -91,10 +91,10 @@ class AddOrder extends React.PureComponent {
 				>
 					<Tabs.TabPane tab="第一步" key="first">
 						<AddOrderFir
-							handleGidBlur={this.handleGidBlur}
-							handleUidChange={this.handleUidChange}
-							handleQtyChange={this.handleQtyChange}
-							handleDateChange={this.handleDateChange} />
+							onGidBlur={this.handleGidBlur}
+							onUidChange={this.handleUidChange}
+							onQtyChange={this.handleQtyChange}
+							onDateChange={this.handleDateChange} />
 					</Tabs.TabPane>
 
 					<Tabs.TabPane disabled={this.state.isSecDisable} tab="第二步" key="second">
