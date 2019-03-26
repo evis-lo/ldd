@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs } from 'antd';
 import AddOrderFir from './AddOrderFir'
 import AddOrderSec from './AddOrderSec'
-
+import AddOrderTir from './AddOrderTir'
 class AddOrder extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -28,11 +28,11 @@ class AddOrder extends React.PureComponent {
 			isGidOk: false,
 			isUidOk: false,
 			isSecDisable: true,
-			isTirDisable: true
+			isBtnDisable: true
 		}
 		// 绑定this
 		this.handleTabChange = this.handleTabChange.bind(this);
-		this.handleGidBlur = this.handleGidBlur.bind(this);
+		this.handleGidChange = this.handleGidChange.bind(this);
 		this.handleUidChange = this.handleUidChange.bind(this);
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.handleQtyChange = this.handleQtyChange.bind(this);
@@ -44,14 +44,22 @@ class AddOrder extends React.PureComponent {
 			current: key
 		})
 	}
-	handleGidBlur(e) {  //todo 若必填项重新变为空时, 相应变更下一步的disabled
-		this.setState({
-			gid: e.target.value, isGidOk: true
-		});
-		if (this.state.isUidOk == true)
+	handleGidChange(e) {  //todo 若必填项重新变为空时, 相应变更下一步的disabled
+		if (e.target.value.length == 6) {
 			this.setState({
-				isSecDisable: false
+				gid: e.target.value, isGidOk: true
 			});
+			if (this.state.isUidOk == true)
+				this.setState({
+					isSecDisable: false
+				});
+		}
+		else {
+			this.setState({
+				gid: e.target.value, isGidOk: false, isSecDisable: true
+			});
+		}
+
 	}
 	handleUidChange(value) {
 		this.setState({
@@ -75,14 +83,18 @@ class AddOrder extends React.PureComponent {
 	}
 	handleCheckChange(e) {
 		this.setState({
-			isChecked: e.target.check,
-			isTirDisable: false
+			isChecked: e.target.checked,
+			isBtnDisable: !e.target.checked
 		});
 	}
 
 
 	render() {
-		let { tabs } = this.state;
+		let { tabs,
+			date,
+			qty,
+			gid,
+			uid } = this.state;
 		return (
 			<div>
 				<Tabs
@@ -91,7 +103,7 @@ class AddOrder extends React.PureComponent {
 				>
 					<Tabs.TabPane tab="第一步" key="first">
 						<AddOrderFir
-							onGidBlur={this.handleGidBlur}
+							onGidChange={this.handleGidChange}
 							onUidChange={this.handleUidChange}
 							onQtyChange={this.handleQtyChange}
 							onDateChange={this.handleDateChange} />
@@ -99,13 +111,13 @@ class AddOrder extends React.PureComponent {
 
 					<Tabs.TabPane disabled={this.state.isSecDisable} tab="第二步" key="second">
 						<AddOrderSec
-							handleCheckChange={this.handleCheckChange}
-							handleTabChange={this.handleTabChange}
-							isTirDisable={this.state.isTirDisable} />
+							onCheckChange={this.handleCheckChange}
+							onTabChange={this.handleTabChange}
+							isBtnDisable={this.state.isBtnDisable} />
 					</Tabs.TabPane>
 
 					<Tabs.TabPane disabled="true" tab="第三步" key="third">
-						"第三"
+						<AddOrderTir data={{ date, qty, gid, uid }}></AddOrderTir>
 					</Tabs.TabPane>
 				</Tabs>
 			</div>

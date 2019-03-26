@@ -13,7 +13,7 @@ class AddOrderFir extends React.Component {
 		// bind(this)
 		this.handleDateChange = this.handleDateChange.bind(this);
 		this.handleQtyChange = this.handleQtyChange.bind(this);
-		this.handleGidBlur = this.handleGidBlur.bind(this);
+		this.handleGidChange = this.handleGidChange.bind(this);
 		this.handleUidChange = this.handleUidChange.bind(this);
 	}
 
@@ -21,14 +21,13 @@ class AddOrderFir extends React.Component {
 		console.log(value._d)
 		this.props.onDateChange(value._d);
 	}
-
+ 
 	handleQtyChange(value) {
 		this.props.onQtyChange(value);
 	}
 
-	handleGidBlur(e) {
-		console.log(e.target.value);
-		this.props.onGidBlur(e);    //向外提供的props名以on为前缀比较好
+	handleGidChange(e) {
+		this.props.onGidChange(e);    //向外提供的props名以on为前缀比较好
 	}
 
 	handleUidChange(value) {
@@ -44,9 +43,9 @@ class AddOrderFir extends React.Component {
 					placeholder="选择账号" >
 					<Select.Option value="jack">Jack</Select.Option>
 				</Select >
-				<Input placeholder="商品编号(必填)" onBlur={this.handleGidBlur} ></Input>
+				<Input placeholder="商品编号(必填)" onChange={this.handleGidChange} ></Input>
 				<DatePicker placeholder="选择送货日期" onChange={this.handleDateChange} showToday format={this.state.dateFormat} />
-				<InputNumber placeholder="数量" min={0} onChange={this.handleQtyChange} />
+				<InputNumber placeholder="数量" min={1} onChange={this.handleQtyChange} />
 			</div>
 		);
 	}

@@ -11,19 +11,17 @@ class AddOrderSec extends React.Component {
 	}
 
 	onChange(e) {
-		console.log(e.target);
-		this.props.handleCheckChange(e);
+		this.props.onCheckChange(e);
 	}
 	handleClick(e) {
-		console.log(e.target);
-		this.props.handleTabChange('third');
+		this.props.onTabChange('third');
 	}
 
 	render() {
 		return (
 			<div>
 				<Checkbox onChange={this.onChange}>同意协议</Checkbox>
-				<Button disabled={this.props.isTirDisable} onClick={this.handleClick} style={{ float: 'right', marginRight: '10px' }}>提交订单</Button>
+				<Button disabled={this.props.isBtnDisable} onClick={this.handleClick} style={{ float: 'right', marginRight: '10px' }}>提交订单</Button>
 			</div>
 		)
 	}

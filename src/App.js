@@ -26,7 +26,7 @@ class App extends React.Component {
 					icon: 'usergroup-add'
 				},
 			],
-			current: '/usertable'
+			currentRoute: '/usertable'
 
 		}
 
@@ -38,7 +38,7 @@ class App extends React.Component {
 
 	handleChange({ item, key, keyPath }) {
 		this.setState({
-			current: key
+			currentRoute: key
 		});
 		this.props.history.push(key)
 	}
@@ -50,7 +50,7 @@ class App extends React.Component {
 		let hash = window.location.hash;// 可能得到的值：/home,/list,/list/computer
 		hash = hash.split('/')[1];
 		this.setState({
-			current: '/' + hash
+			currentRoute: '/' + hash
 		})
 	}
 
@@ -59,7 +59,7 @@ class App extends React.Component {
 			<div>
 				<Menu
 					mode="horizontal"
-					selectedKeys={[this.state.current]}
+					selectedKeys={[this.state.currentRoute]}
 					onClick={this.handleChange}
 				>
 					{
